@@ -48,7 +48,19 @@ module.exports = function(app) {
     });
 
     // Delete API requests
+    app.delete("/api/notes/:id", function(req, res){
+        
         // Read db.json file
-        // Filter DB to exclude deleted, then rewrite db file
+        readFileAsync("./db/db.JSON", "utf8").then(data => {
+            const db = JSON.parse(data);
 
+            // Filter DB to exclude deleted, then rewrite db file
+            writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => ele.id != req.params.id)))
+            .then(()=>{
+                res.json(true);
+            })
+        }).catch(err => {
+            if(err) throw err;
+        })
+    });
 }
