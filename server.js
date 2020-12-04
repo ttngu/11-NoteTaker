@@ -20,7 +20,8 @@ app.use(express.json());
 app.use(express.static('public'))
 
 // Routes
-// HTML ROUTES HERE
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
 
 // We're gonna need to create a route to server our html files so when we hit those endpoints, the browser will serve our html to us.
 
