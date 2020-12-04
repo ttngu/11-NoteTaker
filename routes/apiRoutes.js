@@ -1,7 +1,6 @@
 // Dependencies
 const fs = require("fs");
-const uid = require("uid");
-const util = require("util");
+const path = require("path");
 
 // Define const to read and wite files using promisify
 const readFileAsync = util.promisify(fs.readFile);
