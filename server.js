@@ -1,5 +1,4 @@
 // Dependancies
-
 // We need to require all of our dependacies
 const express = require("express");
 const app = express();
@@ -7,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 // Global Variables
 
-// Declaring global variables
+// Declaring global variables and PORT
 const PORT = process.env.PORT || 10000;
 const db = require("./db/db.json")
 let num = 0
@@ -71,5 +70,6 @@ app.get("/api/test", (req, res) => {
 
 // Server listener
 app.listen(PORT, () => {
+    console.log("App listening on PORT: " + PORT);
     console.log("You started up the server");
 })
