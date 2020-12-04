@@ -1,5 +1,6 @@
 // Dependencies
 const fs = require("fs");
+const uid = require("uid");
 
 // Define const to read and wite files using promisify
 const readFileAsync = util.promisify(fs.readFile);
@@ -19,18 +20,32 @@ module.exports = function(app) {
         }).catch(err => {
             if(err) throw err;
         })
-    })
+    });
     
     // Post API requests
+    app.post("/api/notes", function(req, res){
+
         // Read db.json file
-        // console log
-        // Add id key to req.body
+        readFileAsync("./db/db.json", "utf8").then(data => {
 
-        // Add Post info from req.body
+            // console log
+            console.log(req.body);
+            // Add id key to req.body
+            req.body.id = uid();
+            const db = JSON.parse(data);
 
-        // Write updated db to db.json
-            // Return response as true
-            // if err, throw err
+            // Push post info from req.body
+            db.push(req.body);
+    
+            // Write updated db to db.json
+            writeFileAsync("./db/db.json", JSON.stringify(db)).then(() => {
+                // Return response as true
+                res.json(true)
+            });
+        }).catch(err => {
+            if(err) throw err;
+        })
+    });
 
     // Delete API requests
         // Read db.json file
