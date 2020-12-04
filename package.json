@@ -1,0 +1,23 @@
+{
+  "name": "11-notetaker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttngu/11-NoteTaker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ttngu/11-NoteTaker/issues"
+  },
+  "homepage": "https://github.com/ttngu/11-NoteTaker#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
