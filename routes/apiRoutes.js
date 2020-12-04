@@ -3,64 +3,68 @@ const fs = require("fs");
 const path = require("path");
 
 // Define const to read and wite files using promisify
-const readFileAsync = util.promisify(fs.readFile);
-const writeFileAsync = util.promisify(fs.writeFile);
+// const readFileAsync = util.promisify(fs.readFile);
+// const writeFileAsync = util.promisify(fs.writeFile);
 
 // Module export function
 module.exports = function(app) {
 
     // Get API requests
     app.get("/api/notes", function(req, res){
-
+        const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
+        res.json(db);
         // Read db.json file
-        readFileAsync("./db/db.json", "utf8").then(data => {
+        // readFileAsync("./db/db.json", "utf8").then(data => {
 
-            // Return response as json object
-            res.json(db);
-        }).catch(err => {
-            if(err) throw err;
-        })
+        //     // Return response as json object
+        //     res.json(db);
+        // }).catch(err => {
+        //     if(err) throw err;
+        // })
     });
     
     // Post API requests
     app.post("/api/notes", function(req, res){
-
+        const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
+        db.push(req);
+        fs.writeFile("../db/db.json", db, (err) => err ? console.error(err) : console.log("Note added"));
+        res.json(db);
         // Read db.json file
-        readFileAsync("./db/db.json", "utf8").then(data => {
+        // readFileAsync("./db/db.json", "utf8").then(data => {
 
-            // console log
-            console.log(req.body);
-            // Add id key to req.body
-            req.body.id = uid();
-            const db = JSON.parse(data);
+        //     // console log
+        //     console.log(req.body);
+        //     // Add id key to req.body
+        //     req.body.id = uid();
+        //     const db = JSON.parse(data);
 
-            // Push post info from req.body
-            db.push(req.body);
+        //     // Push post info from req.body
+        //     db.push(req.body);
     
-            // Write updated db to db.json
-            writeFileAsync("./db/db.json", JSON.stringify(db)).then(() => {
-                // Return response as true
-                res.json(true)
-            });
-        }).catch(err => {
-            if(err) throw err;
-        })
+        //     // Write updated db to db.json
+        //     writeFileAsync("./db/db.json", JSON.stringify(db)).then(() => {
+        //         // Return response as true
+        //         res.json(true)
+        //     });
+        // }).catch(err => {
+        //     if(err) throw err;
+        // })
     });
 
     // Delete API requests
-    app.delete("/api/notes/:id", function(req, res){
+    // app.delete("/api/notes/:id", function(req, res){
         
-        // Read db.json file
-        readFileAsync("./db/db.JSON", "utf8").then(data => {
-            const db = JSON.parse(data);
+    //     // Read db.json file
+    //     readFileAsync("./db/db.JSON", "utf8").then(data => {
+    //         const db = JSON.parse(data);
 
-            // Filter DB to exclude deleted, then rewrite db file
-            writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => ele.id != req.params.id)))
-            .then(()=>{
-                res.json(true);
-            })
-        }).catch(err => {
-            if(err) throw err;
-        })
-    });
+    //         // Filter DB to exclude deleted, then rewrite db file
+    //         writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => ele.id != req.params.id)))
+    //         .then(()=>{
+    //             res.json(true);
+    //         })
+    //     }).catch(err => {
+    //         if(err) throw err;
+    //     })
+    // });
 }
