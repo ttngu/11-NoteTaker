@@ -7,6 +7,10 @@ module.exports = function(app) {
     app.get("/notes", function (req, res) {
         res.sendFile(path.join(_dirname, "../public/notes.html"));
     });
+
     // Home page here for other links, add GET
+    app.get("*", function (req, res){
+        res.sendFile(path.join(_dirname, "../public/index.html"));
+    });
     
-}
+};
