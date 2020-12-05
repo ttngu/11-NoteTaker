@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json()); 
 
 // We need a middlewear to have our css and javascript files be loaded from the public folder
-// app.use(express.static('public'))
+app.use(express.static('public'))
 // app.use(express.static("db"));
 
 // Routes

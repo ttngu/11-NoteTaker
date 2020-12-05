@@ -1,17 +1,20 @@
 // Dependencies
 const fs = require("fs");
 const path = require("path");
+const db = require("../db/db.json");
+const uuidv1 = require("uuid/v1");
+const util = require("util");
 
 // Define const to read and wite files using promisify
-// const readFileAsync = util.promisify(fs.readFile);
-// const writeFileAsync = util.promisify(fs.writeFile);
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
 // Module export function
 module.exports = function(app) {
 
     // Get API requests
     app.get("/api/notes", function(req, res){
-        const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
+        // const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
         res.json(db);
         // Read db.json file
         // readFileAsync("./db/db.json", "utf8").then(data => {
@@ -25,9 +28,20 @@ module.exports = function(app) {
     
     // Post API requests
     app.post("/api/notes", function(req, res){
-        const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
-        db.push(req);
-        fs.writeFile("../db/db.json", db, (err) => err ? console.error(err) : console.log("Note added"));
+        const { title, text } = req.body
+        console.log(req);
+        console.log(req.body);
+        id = uuidv1();
+        const newData = {
+            id,
+            title,
+            text,
+        }
+        db.push(newData);
+        // const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
+        // db.push(req);
+        fs.writeFile(path.join(__dirname + "/../db/db.json"), JSON.stringify(db), (err) => err ? console.error(err) : console.log("Note added"));
+
         res.json(db);
         // Read db.json file
         // readFileAsync("./db/db.json", "utf8").then(data => {
@@ -52,19 +66,22 @@ module.exports = function(app) {
     });
 
     // Delete API requests
-    // app.delete("/api/notes/:id", function(req, res){
+    app.delete("/api/notes/:id", function(req, res){
         
-    //     // Read db.json file
-    //     readFileAsync("./db/db.JSON", "utf8").then(data => {
-    //         const db = JSON.parse(data);
+        // Read db.json file
+        readFileAsync("./db/db.JSON", "utf8").then(data => {
+            const db = JSON.parse(data);
 
-    //         // Filter DB to exclude deleted, then rewrite db file
-    //         writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => ele.id != req.params.id)))
-    //         .then(()=>{
-    //             res.json(true);
-    //         })
-    //     }).catch(err => {
-    //         if(err) throw err;
-    //     })
-    // });
+            // Filter DB to exclude deleted, then rewrite db file
+            writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele =>{ 
+                console.log(ele.id);
+                console.log(req.params.id);
+                ele.id != req.params.id})))
+            .then(()=>{
+                res.json(true);
+            })
+        }).catch(err => {
+            if(err) throw err;
+        })
+    });
 }
