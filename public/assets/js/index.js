@@ -29,7 +29,10 @@ const deleteNote = (id) => {
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE",
-  });
+  })
+  .then (function(res){
+    console.log(res);
+    })
 };
 
 // If there is an activeNote, display it, otherwise render empty inputs

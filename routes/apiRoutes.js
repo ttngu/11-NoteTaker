@@ -14,7 +14,7 @@ module.exports = function(app) {
 
     // Get API requests
     app.get("/api/notes", function(req, res){
-        // const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
+        let db = readFileAsync(path.join(__dirname + "/../db/db.json"), "utf8");
         res.json(db);
         // Read db.json file
         // readFileAsync("./db/db.json", "utf8").then(data => {
