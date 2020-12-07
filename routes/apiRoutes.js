@@ -14,16 +14,15 @@ module.exports = function(app) {
 
     // Get API requests
     app.get("/api/notes", function(req, res){
-        let db = readFileAsync(path.join(__dirname + "/../db/db.json"), "utf8");
-        res.json(db);
+        // let db = readFileAsync(path.join(__dirname + "/../db/db.json"), "utf8");
+        // res.json(db);
         // Read db.json file
-        // readFileAsync("./db/db.json", "utf8").then(data => {
-
-        //     // Return response as json object
-        //     res.json(db);
-        // }).catch(err => {
-        //     if(err) throw err;
-        // })
+        return readFileAsync(path.join(__dirname + "/../db/db.json"), "utf8").then(data => {
+            // Return response as json object
+            res.json(JSON.parse(data));
+        }).catch(err => {
+            if(err) throw err;
+        })
     });
     
     // Post API requests
