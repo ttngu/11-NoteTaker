@@ -65,6 +65,7 @@ module.exports = function(app) {
         // })
     });
 
+    
     // Delete API requests
     app.delete("/api/notes/:id", function(req, res){
         
@@ -73,10 +74,14 @@ module.exports = function(app) {
             const db = JSON.parse(data);
 
             // Filter DB to exclude deleted, then rewrite db file
-            writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele =>{ 
+            writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => {
                 console.log(ele.id);
                 console.log(req.params.id);
-                ele.id != req.params.id})))
+                for (let i = 0; i < db.length; i++){
+                if (ele.id === req.params.id){
+                    console.log("This is where the data is spliced to remove the obj with the matching ID")}
+                }}
+        )))
             .then(()=>{
                 res.json(true);
             })
