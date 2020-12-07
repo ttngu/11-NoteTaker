@@ -22,16 +22,26 @@
 npm i
 ```
 
-  <br>
-  <br>
-
   ## Usage
-  
+  To enter the Note Taker App, click "Get Started" on the home page.
+  ![Home Page](https://github.com/ttngu/11-NoteTaker/blob/main/public/assets/ScreenCaps/home-screen.png?raw=true)
+
   <br>
+  Welcome to the Note Taker App. Here there is an input for the note title and body. On the left, saved notes will appear. On the top right, the icons allow you to save or write notes.
+
+  ![Note Page](https://github.com/ttngu/11-NoteTaker/blob/main/public/assets/ScreenCaps/note-screen.png?raw=true)
   <br>
 
-  ## Contributing 
-  
+  Enter a title and body text for the note, then select save.
+  ![Create Page](https://github.com/ttngu/11-NoteTaker/blob/main/public/assets/ScreenCaps/createnote-screen.png?raw=true)
+  <br>
+
+  Now the saved note appears on the left, with the icon to delete is desired.
+  ![Save Page](https://github.com/ttngu/11-NoteTaker/blob/main/public/assets/ScreenCaps/save-screen.png?raw=true)
+  <br>
+
+  ## Notes about this assignment 
+  I had some trouble with this assignment. The notes are able to be deleted from the db.json file, but will not delete from the browser view. To me, this doesn't make sense because if there is not info in the db.json file, there should not be any notes displayed?
   <br>
   <br>
 
@@ -41,8 +51,7 @@ npm i
 npm test
 ```
 
-  <br>
-  <br>
+
 
   ## License
   This project is licensed under the None license.
