@@ -2,7 +2,14 @@
   ![GitHub License](https://img.shields.io/badge/License-None-blue)
 
   ## Description
-  Using an express backend, create and application that can write, save and delete notes. This will sace and retrieve the note data from a JSON file.
+  Using an express backend, create and application that can write, save and delete notes. This will save and retrieve the note data from a JSON file.
+
+  Here is the link to the GitHub repo for this assignment:
+  https://github.com/ttngu/11-NoteTaker
+
+  Here is the link to the Heruko deployed assignment:
+  https://note-taker-app-unit11.herokuapp.com/
+
   <br>
   <br>
 
