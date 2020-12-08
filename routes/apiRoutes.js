@@ -80,23 +80,27 @@ module.exports = function(app) {
     app.delete("/api/notes/:id", function(req, res){
         
         // Read db.json file
-        readFileAsync("./db/db.JSON", "utf8").then(data => {
-            const db = JSON.parse(data);
+        // readFileAsync("./db/db.JSON", "utf8").then(data => {
+        //     const db = JSON.parse(data);
 
-            // Filter DB to exclude deleted, then rewrite db file
-            writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => {
-                console.log(ele.id);
-                console.log(req.params.id);
+        //     // Filter DB to exclude deleted, then rewrite db file
+        //     writeFileAsync("./db/db.json",JSON.stringify(db.filter(ele => {
+        //         console.log(ele.id);
+        //         console.log(req.params.id);
                 for (let i = 0; i < db.length; i++){
-                if (ele.id === req.params.id){
+                if (req.params.id === db[i].id){
+                    db.splice(i,1);
                     console.log("This is where the data is spliced to remove the obj with the matching ID")}
-                }}
-        )))
-            .then(()=>{
-                res.json(true);
-            })
-        }).catch(err => {
-            if(err) throw err;
-        })
+                }
+        // )))
+            
+            res.json(true);
+                
+            fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(db), function(err) {
+                if (err) throw err;
+            });
+        // }).catch(err => {
+        //     if(err) throw err;
+        // })
     });
 }
