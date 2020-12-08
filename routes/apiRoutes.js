@@ -36,12 +36,23 @@ module.exports = function(app) {
             title,
             text,
         }
-        db.push(newData);
-        // const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
-        // db.push(req);
-        fs.writeFile(path.join(__dirname + "/../db/db.json"), JSON.stringify(db), (err) => err ? console.error(err) : console.log("Note added"));
 
-        res.json(db);
+        let db = readFileAsync(path.join(__dirname + "/../db/db.json"), "utf8").then(data => {
+            // Return response as json object
+            db =JSON.parse(data);
+            db.push(newData);
+            fs.writeFile(path.join(__dirname + "/../db/db.json"), JSON.stringify(db), (err) => err ? console.error(err) : console.log("Note added"));
+            res.json(db);
+        }).catch(err => {
+            if(err) throw err;
+        })
+        // db.push(newData);
+        // // const db = fs.readFile("../db/db.json", (err) => err ? console.error(err) : console.log(db));
+        // // db.push(req);
+        // fs.writeFile(path.join(__dirname + "/../db/db.json"), JSON.stringify(db), (err) => err ? console.error(err) : console.log("Note added"));
+
+        // res.json(db);
+        
         // Read db.json file
         // readFileAsync("./db/db.json", "utf8").then(data => {
 
