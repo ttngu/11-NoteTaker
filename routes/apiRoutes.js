@@ -71,12 +71,6 @@ module.exports = function(app) {
                 console.log('Error parsing JSON string:', err)
             }
         })
-
-
-
     });
 
 }
-
-
-
